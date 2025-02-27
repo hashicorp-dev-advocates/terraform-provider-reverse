@@ -39,7 +39,7 @@ type StringResourceModel struct {
 }
 
 func (r *StringResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_example"
+	resp.TypeName = req.ProviderTypeName + "_string"
 }
 
 func (r *StringResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
