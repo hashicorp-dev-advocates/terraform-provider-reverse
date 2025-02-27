@@ -146,6 +146,8 @@ func (r *StringResource) Update(ctx context.Context, req resource.UpdateRequest,
 	//     return
 	// }
 
+	data.Result = types.StringValue(reverse.String(data.Input.ValueString()))
+
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
