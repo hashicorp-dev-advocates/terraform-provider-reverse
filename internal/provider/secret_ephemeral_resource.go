@@ -12,28 +12,28 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ ephemeral.EphemeralResource = &ExampleEphemeralResource{}
+var _ ephemeral.EphemeralResource = &SecretEphemeralResource{}
 
-func NewExampleEphemeralResource() ephemeral.EphemeralResource {
-	return &ExampleEphemeralResource{}
+func NewSecretEphemeralResource() ephemeral.EphemeralResource {
+	return &SecretEphemeralResource{}
 }
 
-// ExampleEphemeralResource defines the ephemeral resource implementation.
-type ExampleEphemeralResource struct {
+// SecretEphemeralResource defines the ephemeral resource implementation.
+type SecretEphemeralResource struct {
 	// client *http.Client // If applicable, a client can be initialized here.
 }
 
-// ExampleEphemeralResourceModel describes the ephemeral resource data model.
-type ExampleEphemeralResourceModel struct {
+// SecretEphemeralResourceModel describes the ephemeral resource data model.
+type SecretEphemeralResourceModel struct {
 	ConfigurableAttribute types.String `tfsdk:"configurable_attribute"`
 	Value                 types.String `tfsdk:"value"`
 }
 
-func (r *ExampleEphemeralResource) Metadata(_ context.Context, req ephemeral.MetadataRequest, resp *ephemeral.MetadataResponse) {
+func (r *SecretEphemeralResource) Metadata(_ context.Context, req ephemeral.MetadataRequest, resp *ephemeral.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_example"
 }
 
-func (r *ExampleEphemeralResource) Schema(ctx context.Context, _ ephemeral.SchemaRequest, resp *ephemeral.SchemaResponse) {
+func (r *SecretEphemeralResource) Schema(ctx context.Context, _ ephemeral.SchemaRequest, resp *ephemeral.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "Example ephemeral resource",
@@ -52,8 +52,8 @@ func (r *ExampleEphemeralResource) Schema(ctx context.Context, _ ephemeral.Schem
 	}
 }
 
-func (r *ExampleEphemeralResource) Open(ctx context.Context, req ephemeral.OpenRequest, resp *ephemeral.OpenResponse) {
-	var data ExampleEphemeralResourceModel
+func (r *SecretEphemeralResource) Open(ctx context.Context, req ephemeral.OpenRequest, resp *ephemeral.OpenResponse) {
+	var data SecretEphemeralResourceModel
 
 	// Read Terraform config data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

@@ -76,9 +76,10 @@ func (p *ScaffoldingProvider) Resources(ctx context.Context) []func() resource.R
 
 func (p *ScaffoldingProvider) EphemeralResources(ctx context.Context) []func() ephemeral.EphemeralResource {
 	return []func() ephemeral.EphemeralResource{
-		NewExampleEphemeralResource,
+		NewSecretEphemeralResource,
 	}
 }
+
 
 func (p *ScaffoldingProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
