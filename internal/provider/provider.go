@@ -7,6 +7,8 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/hashicorp/terraform-plugin-log/tflog"
+
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
 	"github.com/hashicorp/terraform-plugin-framework/function"
@@ -66,6 +68,8 @@ func (p *ScaffoldingProvider) Configure(ctx context.Context, req provider.Config
 	client := http.DefaultClient
 	resp.DataSourceData = client
 	resp.ResourceData = client
+
+	tflog.Debug(ctx, "Successfully configured the provider")
 }
 
 func (p *ScaffoldingProvider) Resources(ctx context.Context) []func() resource.Resource {
