@@ -69,6 +69,7 @@ func (p *ReverseProvider) Configure(ctx context.Context, req provider.ConfigureR
 	resp.DataSourceData = client
 	resp.ResourceData = client
 
+	ctx = tflog.SetField(ctx, "endpoint", data.Endpoint.ValueString())
 	tflog.Debug(ctx, "Successfully configured the provider")
 }
 
