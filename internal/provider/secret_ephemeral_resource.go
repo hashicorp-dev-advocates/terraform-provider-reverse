@@ -6,6 +6,9 @@ package provider
 import (
 	"context"
 
+	"github.com/hashicorp-sandbox/go-reverse/reverse"
+	"github.com/hashicorp-sandbox/go-reverse/secret"
+
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -68,9 +71,9 @@ func (r *SecretEphemeralResource) Open(ctx context.Context, req ephemeral.OpenRe
 	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read example, got error: %s", err))
 	//     return
 	// }
-	//
-	// However, this example hardcodes setting the token attribute to a specific value for brevity.
-	data.Value = types.StringValue("token-123")
+
+	secret := secret.GetByID("some/id")
+	data.Value = types.StringValue(reverse.String(secret))
 
 	// Save data into ephemeral result data
 	resp.Diagnostics.Append(resp.Result.Set(ctx, &data)...)
