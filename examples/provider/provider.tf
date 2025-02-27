@@ -1,3 +1,3 @@
-provider "scaffolding" {
+provider "reverse" {
   # example configuration here
 }
