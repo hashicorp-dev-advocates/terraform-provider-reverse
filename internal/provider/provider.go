@@ -37,7 +37,7 @@ type ScaffoldingProviderModel struct {
 }
 
 func (p *ScaffoldingProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "reverse"
+	resp.TypeName = "scaffolding"
 	resp.Version = p.version
 }
 
