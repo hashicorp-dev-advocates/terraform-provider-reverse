@@ -25,8 +25,8 @@ type SecretEphemeralResource struct {
 
 // SecretEphemeralResourceModel describes the ephemeral resource data model.
 type SecretEphemeralResourceModel struct {
-	ConfigurableAttribute types.String `tfsdk:"configurable_attribute"`
-	Value                 types.String `tfsdk:"value"`
+	SecretID types.String `tfsdk:"secret_id"`
+	Value    types.String `tfsdk:"value"`
 }
 
 func (r *SecretEphemeralResource) Metadata(_ context.Context, req ephemeral.MetadataRequest, resp *ephemeral.MetadataResponse) {
@@ -39,14 +39,14 @@ func (r *SecretEphemeralResource) Schema(ctx context.Context, _ ephemeral.Schema
 		MarkdownDescription: "Example ephemeral resource",
 
 		Attributes: map[string]schema.Attribute{
-			"configurable_attribute": schema.StringAttribute{
-				MarkdownDescription: "Example configurable attribute",
+			"secret_id": schema.StringAttribute{
+				MarkdownDescription: "Identifier used to retrieve the secret value",
 				Required:            true, // Ephemeral resources expect their dependencies to already exist.
 			},
 			"value": schema.StringAttribute{
 				Computed: true,
 				// Sensitive:           true, // If applicable, mark the attribute as sensitive.
-				MarkdownDescription: "Example value",
+				MarkdownDescription: "Reversed secret value",
 			},
 		},
 	}
