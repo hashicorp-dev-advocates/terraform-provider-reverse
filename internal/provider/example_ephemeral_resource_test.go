@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/tfversion"
 )
 
-func TestAccExampleEphemeralResource(t *testing.T) {
+func TestAccSecretEphemeralResource(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		// Ephemeral resources are only available in 1.10 and later
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
@@ -24,12 +24,12 @@ func TestAccExampleEphemeralResource(t *testing.T) {
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactoriesWithEcho,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccExampleEphemeralResourceConfig("example"),
+				Config: testAccSecretEphemeralResourceConfig("one"),
 				ConfigStateChecks: []statecheck.StateCheck{
 					statecheck.ExpectKnownValue(
 						"echo.test",
 						tfjsonpath.New("data").AtMapKey("value"),
-						knownvalue.StringExact("token-123"),
+						knownvalue.StringExact("terces repus"),
 					),
 				},
 			},
@@ -37,16 +37,16 @@ func TestAccExampleEphemeralResource(t *testing.T) {
 	})
 }
 
-func testAccExampleEphemeralResourceConfig(configurableAttribute string) string {
+func testAccSecretEphemeralResourceConfig(secretID string) string {
 	return fmt.Sprintf(`
-ephemeral "scaffolding_example" "test" {
-  configurable_attribute = %[1]q
+ephemeral "reverse_secret" "test" {
+  secret_id = %[1]q
 }
 
 provider "echo" {
-  data = ephemeral.scaffolding_example.test
+  data = ephemeral.reverse_secret.test
 }
 
 resource "echo" "test" {}
-`, configurableAttribute)
+`, secretID)
 }
