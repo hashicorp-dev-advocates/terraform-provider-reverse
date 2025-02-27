@@ -3,6 +3,7 @@ module github.com/hashicorp-dev-advocates/terraform-provider-reverse
 go 1.22.7
 
 require (
+	github.com/hashicorp-sandbox/go-reverse v0.3.0
 	github.com/hashicorp/terraform-plugin-framework v1.14.1
 	github.com/hashicorp/terraform-plugin-go v0.26.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0

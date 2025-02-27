@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/hashicorp-sandbox/go-reverse/reverse"
+
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -94,9 +96,7 @@ func (r *StringResource) Create(ctx context.Context, req resource.CreateRequest,
 	//     return
 	// }
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.Id = types.StringValue("example-id")
+	data.Result = types.StringValue(reverse.String(data.Input.ValueString()))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
