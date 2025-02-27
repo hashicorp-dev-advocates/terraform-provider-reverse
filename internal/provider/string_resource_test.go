@@ -13,61 +13,39 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/tfjsonpath"
 )
 
-func TestAccExampleResource(t *testing.T) {
+func TestAccStringResource(t *testing.T) {
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 		Steps: []resource.TestStep{
 			// Create and Read testing
 			{
-				Config: testAccExampleResourceConfig("one"),
+				Config: testAccStringResourceConfig("one"),
 				ConfigStateChecks: []statecheck.StateCheck{
 					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("id"),
-						knownvalue.StringExact("example-id"),
-					),
-					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("defaulted"),
-						knownvalue.StringExact("example value when not configured"),
-					),
-					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("configurable_attribute"),
+						"reverse_string.test",
+						tfjsonpath.New("input"),
 						knownvalue.StringExact("one"),
+					),
+					statecheck.ExpectKnownValue(
+						"reverse_string.test",
+						tfjsonpath.New("result"),
+						knownvalue.StringExact("eno"),
 					),
 				},
 			},
-			// ImportState testing
-			{
-				ResourceName:      "scaffolding_example.test",
-				ImportState:       true,
-				ImportStateVerify: true,
-				// This is not normally necessary, but is here because this
-				// example code does not have an actual upstream service.
-				// Once the Read method is able to refresh information from
-				// the upstream service, this can be removed.
-				ImportStateVerifyIgnore: []string{"configurable_attribute", "defaulted"},
-			},
 			// Update and Read testing
 			{
-				Config: testAccExampleResourceConfig("two"),
+				Config: testAccStringResourceConfig("two"),
 				ConfigStateChecks: []statecheck.StateCheck{
 					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("id"),
-						knownvalue.StringExact("example-id"),
-					),
-					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("defaulted"),
-						knownvalue.StringExact("example value when not configured"),
-					),
-					statecheck.ExpectKnownValue(
-						"scaffolding_example.test",
-						tfjsonpath.New("configurable_attribute"),
+						"reverse_string.test",
+						tfjsonpath.New("input"),
 						knownvalue.StringExact("two"),
+					),
+					statecheck.ExpectKnownValue(
+						"reverse_string.test",
+						tfjsonpath.New("result"),
+						knownvalue.StringExact("owt"),
 					),
 				},
 			},
@@ -76,10 +54,10 @@ func TestAccExampleResource(t *testing.T) {
 	})
 }
 
-func testAccExampleResourceConfig(configurableAttribute string) string {
+func testAccStringResourceConfig(input string) string {
 	return fmt.Sprintf(`
-resource "scaffolding_example" "test" {
-  configurable_attribute = %[1]q
+resource "reverse_string" "test" {
+  input = %[1]q
 }
-`, configurableAttribute)
+`, input)
 }
